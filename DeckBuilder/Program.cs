@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using DeckBuilder.Models;
+using DeckBuilder.DTO;
 
 namespace DeckBuilder
 {
@@ -15,8 +16,11 @@ namespace DeckBuilder
     {
         public static void Main(string[] args)
         {
-            SeedData.TestRestClient();
-            BuildWebHost(args).Run();
+            MagicApi API = new MagicApi();
+            API.PrintCards();
+            Console.Read();
+            //SeedData.TestRestClient();
+            //BuildWebHost(args).Run();
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
