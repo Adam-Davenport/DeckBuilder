@@ -9,12 +9,12 @@ namespace DeckBuilder.DTO
 {
     public class MagicApi
     {
-        private const string BASEURL = "https://api.magicthegathering.io/v1";
-        private const string CARDS_REF = "cards";
-        private const string SETS_REF = "sets";
-        private const string PAGE_REF = "?page=";
+        private const string BASEURL = "https://api.magicthegathering.io/v1";   // Base url for mtg api
+        private const string CARDS_REF = "cards";   // Card reference
+        private const string SETS_REF = "sets";     // Set reference
+        private const string PAGE_REF = "?page=";   // Page filter
         private int CardPage;   // Used to keep track of pages for cards
-        private int SetPage;
+        private int SetPage;    // Track set page
 
 
         public MagicApi()
@@ -27,7 +27,7 @@ namespace DeckBuilder.DTO
         public void UpdateDatabase()
         {
             UpdateSets();
-            //UpdateCards();
+            UpdateCards();
         }
 
         // Update data for all sets
