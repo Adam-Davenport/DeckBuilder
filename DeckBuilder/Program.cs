@@ -17,7 +17,7 @@ namespace DeckBuilder
         public static void Main(string[] args)
         {
             MagicApi API = new MagicApi();
-            API.PrintCards();
+            API.UpdateDatabase();
             Console.Read();
             //SeedData.TestRestClient();
             //BuildWebHost(args).Run();

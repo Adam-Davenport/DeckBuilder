@@ -1,17 +1,13 @@
-using System.Runtime.Serialization;
+using DeckBuilder.DTO;
 
 namespace DeckBuilder.Models
 {
-    [DataContract(Name="card")]
     public class Card
     {
-        [DataMember(Name="id")]
         public string Id { get; set; } // Unique id of the card for a specific set
 
-        [DataMember(Name="multiverseid")]
         public int MultiverseId { get; set; } // Multiverse id of the card
 
-        [DataMember(Name="name")]
         public string Name { get; set; }
         // public Set Set { get; set; }
         // public int Number { get; set; }
@@ -27,6 +23,11 @@ namespace DeckBuilder.Models
         // public string FlavorText { get; set; }
         // public string Artist { get; set; }
         // public string Layout { get; set; }
+
+        public Card(CardDTO Item)
+        {
+            Name = Item.Name;
+        }
         
     }
 }
