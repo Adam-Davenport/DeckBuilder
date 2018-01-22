@@ -2,11 +2,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DeckBuilder.Models
 {
-    class DeckBuilderContext : DbContext
+    public class DeckBuilderContext : DbContext
     {
-        public DbSet<Card> Cards { get; set; }
-        public DbSet<Set> Sets { get; set; }
-        public DbSet<Deck> Decks { get; set; }
+        public DbSet<Card> Card { get; set; }
+        public DbSet<Set> Set { get; set; }
+        public DbSet<Deck> Deck { get; set; }
 
         public DeckBuilderContext(DbContextOptions<DeckBuilderContext> options) : base(options)
         {

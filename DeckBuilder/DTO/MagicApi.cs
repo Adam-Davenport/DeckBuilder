@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using RestSharp;
 using DeckBuilder.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DeckBuilder.DTO
 {
@@ -13,12 +15,15 @@ namespace DeckBuilder.DTO
         private const string CARDS_REF = "cards";   // Card reference
         private const string SETS_REF = "sets";     // Set reference
         private const string PAGE_REF = "?page=";   // Page filter
-        private int CardPage;   // Used to keep track of pages for cards
-        private int SetPage;    // Track set page
+        private int CardPage;                       // Used to keep track of pages for cards
+        private int SetPage;                        // Track set page
+        private DeckBuilderContext DbContext;       // Database context
 
 
-        public MagicApi()
+        public MagicApi(IServiceProvider ServiceProvider)
         {
+            // Get our db context
+            DbContext = new DeckBuilderContext(ServiceProvider.GetRequiredService<DbContextOptions<DeckBuilderContext>>());
             CardPage = 1;   // Page starts at 1 and is not a 0 based index
             SetPage = 1;
         }
@@ -26,8 +31,35 @@ namespace DeckBuilder.DTO
         // Call all update functions
         public void UpdateDatabase()
         {
-            UpdateSets();
-            UpdateCards();
+            TestFunction();
+            //UpdateSets();
+            //UpdateCards();
+        }
+
+        private void TestFunction()
+        {
+            // Set our resource to sets and current page
+            string Resource = SETS_REF + PAGE_REF + SetPage;
+
+            RestClient Client = GetRestClient();
+            RestRequest Request = GetRestRequest(Resource);
+            Client.BaseUrl = new Uri(BASEURL);
+            var Response = Client.Execute<SetListDTO>(Request);
+            SetListDTO SetList = Response.Data;
+
+            // Check to make sure there are more sets
+            if(SetList.Sets.Count > 0)
+            {
+                foreach(SetDTO CurrentSet in SetList.Sets)
+                {
+                    Set NewSet = new Set(CurrentSet);
+                    DbContext.Set.Add(NewSet);
+                    Console.WriteLine(NewSet.Name + ", " + NewSet.ReleaseDate);
+                    DbContext.SaveChanges();
+                }
+                Console.Read();
+            }
+
         }
 
         // Update data for all sets
@@ -40,9 +72,11 @@ namespace DeckBuilder.DTO
             // Check to make sure there are more sets
             if(SetList.Sets.Count > 0)
             {
-                foreach(SetDTO Set in SetList.Sets)
+                foreach(SetDTO CurrentSet in SetList.Sets)
                 {
-                    Console.WriteLine(Set.Code);
+                    Set NewSet = new Set(CurrentSet);
+                    DbContext.Set.Add(NewSet);
+                    Console.WriteLine(NewSet.Name);
                 }
             }
         }
