@@ -16,7 +16,7 @@ namespace DeckBuilder.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Decklist>().HasKey(d => new { d.Deck, d.Card });
+            modelBuilder.Entity<Decklist>().HasKey(d => new { d.DeckId, d.CardId });
         }
         
     }
