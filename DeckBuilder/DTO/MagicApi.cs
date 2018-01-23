@@ -32,72 +32,55 @@ namespace DeckBuilder.DTO
         public void UpdateDatabase()
         {
             UpdateSets();
-            UpdateCards();
-        }
+			UpdateCards();
+		}
 
-        private void TestFunction()
-        {
-            // Set our resource to sets and current page
-            string Resource = SETS_REF + PAGE_REF + SetPage;
-
-            RestClient Client = GetRestClient();
-            RestRequest Request = GetRestRequest(Resource);
-            Client.BaseUrl = new Uri(BASEURL);
-            var Response = Client.Execute<SetListDTO>(Request);
-            SetListDTO SetList = Response.Data;
-
-            // Check to make sure there are more sets
-            if(SetList.Sets.Count > 0)
-            {
-                foreach(SetDTO CurrentSet in SetList.Sets)
-                {
-                    Set NewSet = new Set(CurrentSet);
-                    DbContext.Set.Add(NewSet);
-                    Console.WriteLine(NewSet.Name + ", " + NewSet.ReleaseDate);
-                    DbContext.SaveChanges();
-                }
-                Console.Read();
-            }
-
-        }
-
-        // Update data for all sets
         public async void UpdateSets()
         {
-            // Set our resource to sets and current page
             string Resource = SETS_REF + PAGE_REF + SetPage;
             SetListDTO SetList = await GetDTOAsync<SetListDTO>(Resource);
 
-            // Check to make sure there are more sets
-            if(SetList.Sets.Count > 0)
+            if(SetList != null && SetList.Sets.Count > 0)
             {
+				Console.WriteLine("Set page: " + SetPage.ToString());
                 foreach(SetDTO CurrentSet in SetList.Sets)
                 {
-                    Set NewSet = new Set(CurrentSet);
-                    DbContext.Set.Add(NewSet);
-                    Console.WriteLine(NewSet.Name);
+					try
+					{
+						Set NewSet = new Set(CurrentSet);
+						DbContext.Set.Add(NewSet);
+						DbContext.SaveChanges();
+					}
+					catch(Exception ex)
+					{
+					}
                 }
-                DbContext.SaveChanges();
+				SetPage++;
+				UpdateSets();
             }
         }
 
-        // Print all cards to console
         public async void UpdateCards()
         {
-            // Set resource to cards at current page
             string Resource = CARDS_REF + PAGE_REF + CardPage.ToString();
             CardListDTO CardList = await GetDTOAsync<CardListDTO>(Resource);
 
-            // Check to make sure there are cards
             if(CardList.Cards.Count > 0)
             {
-                foreach(CardDTO Card in CardList.Cards)
+                foreach(CardDTO CurrentCard in CardList.Cards)
                 {
-                    Console.WriteLine(Card.Name + ", " + Card.Colors);
+					try
+					{
+						Card NewCard = new Card(CurrentCard);
+						DbContext.Card.Add(NewCard);
+					}
+					catch(Exception e)
+					{
+						Console.WriteLine("There was an error adding a card");
+					}
                 }
-                Console.WriteLine(CardPage);
-                CardPage++; // Continue our iteration
-                UpdateCards();   // Recursively call this function
+                CardPage++;
+                UpdateCards();
             }
         }
 
