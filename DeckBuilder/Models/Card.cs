@@ -14,7 +14,6 @@ namespace DeckBuilder.Models
         public string Power { get; set; }
         public string Toughness { get; set; }
         public string Type { get; set; }
-        public string Subtype { get; set; }
         public string ImageUrl { get; set; }
         public string Rarity { get; set; }
         public string Text { get; set; }
