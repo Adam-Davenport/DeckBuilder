@@ -24,10 +24,10 @@ namespace DeckBuilder.DTO
         public int Cmc { get; set; }
 
         [DataMember(Name = "colors")]
-        public string Colors { get; set; }
+        public List<string>Colors { get; set; }
 
-        [DataMember(Name = "types")]
-        public string Types { get; set; }
+        [DataMember(Name = "type")]
+        public string Type { get; set; }
 
         [DataMember(Name = "supertypes")]
         public string SuperTypes { get; set; }
@@ -39,7 +39,7 @@ namespace DeckBuilder.DTO
         public string Rarity { get; set; }
 
         [DataMember(Name = "set")]
-        public string Set { get; set; }
+        public string SetCode { get; set; }
 
         [DataMember(Name = "text")]
         public string Text { get; set; }

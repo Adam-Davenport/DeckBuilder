@@ -31,9 +31,8 @@ namespace DeckBuilder.DTO
         // Call all update functions
         public void UpdateDatabase()
         {
-            TestFunction();
-            //UpdateSets();
-            //UpdateCards();
+            UpdateSets();
+            UpdateCards();
         }
 
         private void TestFunction()
@@ -78,6 +77,7 @@ namespace DeckBuilder.DTO
                     DbContext.Set.Add(NewSet);
                     Console.WriteLine(NewSet.Name);
                 }
+                DbContext.SaveChanges();
             }
         }
 

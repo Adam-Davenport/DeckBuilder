@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DeckBuilder.Models
 {
     public class Booster
     {
+        [Key]
         public Set Set { get; set; }
+        [Key]
         public string Card { get; set; }
     }
 }

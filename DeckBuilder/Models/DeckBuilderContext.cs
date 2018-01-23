@@ -13,6 +13,11 @@ namespace DeckBuilder.Models
         public DeckBuilderContext(DbContextOptions<DeckBuilderContext> options) : base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Decklist>().HasKey(d => new { d.Deck, d.Card });
+        }
         
     }
 }
