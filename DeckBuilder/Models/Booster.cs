@@ -4,9 +4,18 @@ namespace DeckBuilder.Models
 {
     public class Booster
     {
-        [Key]
-        public Set Set { get; set; }
-        [Key]
-        public string Card { get; set; }
+        public string SetCode { get; set; }
+        public string CardType { get; set; }
+
+		public Booster()
+		{
+		}
+
+		public Booster(string Code, string Id)
+		{
+			SetCode = Code;
+			CardType = Id;
+		}
     }
+
 }
