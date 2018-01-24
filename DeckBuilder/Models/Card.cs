@@ -5,7 +5,7 @@ namespace DeckBuilder.Models
     public class Card
     {
         public string Id { get; set; } // Unique id of the card for a specific set
-        public int MultiverseId { get; set; } // Multiverse id of the card
+        public string MultiverseId { get; set; } // Multiverse id of the card
         public string Name { get; set; }
         public string SetId { get; set; }
         public int Number { get; set; }
@@ -42,6 +42,23 @@ namespace DeckBuilder.Models
         public Card()
         {
         }
+
+		public void UpdateFromDTO(CardDTO Item)
+		{
+            Name = Item.Name;
+            MultiverseId = Item.MultiverseId;
+            ManaCost = Item.ManaCost;
+            Cmc = Item.Cmc;
+            Type = Item.Type;
+            Rarity = Item.Rarity;
+            SetId = Item.SetCode;
+            Text = Item.Text;
+            ImageUrl = Item.ImageUrl;
+            Artist = Item.Artist;
+            Power = Item.Power;
+            Toughness = Item.Toughness;
+            Layout = Item.Layout;
+		}
         
     }
 

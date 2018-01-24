@@ -15,7 +15,7 @@ namespace DeckBuilder.DTO
         public string Name { get; set; }
         
         [DataMember(Name = "multiverseid")]
-        public int MultiverseId { get; set; }
+        public string MultiverseId { get; set; }
 
         [DataMember(Name = "manaCost")]
         public string ManaCost { get; set; }
