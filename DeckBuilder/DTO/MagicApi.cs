@@ -9,6 +9,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace DeckBuilder.DTO
 {
+	/*
+	 * Flow of update logic
+	 * UpdateSets -> Update single set -> Update Boosters for set
+	 * Update Cards -> Update Single card
+	 */
     public class MagicApi
     {
         private const string BASEURL = "https://api.magicthegathering.io/v1";   // Base url for mtg api
@@ -78,6 +83,7 @@ namespace DeckBuilder.DTO
 			{
 				NewSet.UpdateFromDTO(SetData);
 			}
+			UpdateBooster(SetData);
 		}
 
         public async void UpdateCards()
@@ -107,6 +113,9 @@ namespace DeckBuilder.DTO
 			Card CurrentCard = DbContext.Card.Find(CardData.Id);
 			if (CurrentCard == null)
 			{
+				Console.WriteLine("===============================");
+				Console.WriteLine(CardData.Name + CardData.SetCode);
+				Console.WriteLine("===============================");
 				Card NewCard = new Card(CardData);
 				DbContext.Card.Add(NewCard);
 			}
@@ -114,6 +123,21 @@ namespace DeckBuilder.DTO
 			{
 				//CurrentCard.UpdateFromDTO(CardData);
 				//DbContext.Card.Update(CurrentCard);
+			}
+		}
+
+		private void UpdateBooster(SetDTO CurrentSet)
+		{
+			if(CurrentSet.Booster != null && CurrentSet.Booster.Count > 0)
+			{
+				foreach(string CardType in CurrentSet.Booster)
+				{
+					Booster CurrentBooster = DbContext.Booster.Find(CurrentSet.Code, CardType);
+					if(CurrentBooster != null)
+					{
+						CurrentBooster = new Booster(CurrentSet.Code, CardType);
+					}
+				}
 			}
 		}
 
