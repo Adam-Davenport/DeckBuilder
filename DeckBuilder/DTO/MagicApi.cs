@@ -18,6 +18,7 @@ namespace DeckBuilder.DTO
         private int CardPage;                       // Used to keep track of pages for cards
         private int SetPage;                        // Track set page
         private DeckBuilderContext DbContext;       // Database context
+		private const int MAX_PAGES = 5;
 
 
         public MagicApi(IServiceProvider ServiceProvider)
@@ -32,7 +33,16 @@ namespace DeckBuilder.DTO
         public void UpdateDatabase()
         {
             UpdateSets();
-			UpdateCards();
+		}
+
+		public void SaveChanges()
+		{
+			try
+			{
+				DbContext.SaveChanges();
+			}
+			catch (DbUpdateConcurrencyException)
+			{ }
 		}
 
         public async void UpdateSets()
@@ -45,44 +55,67 @@ namespace DeckBuilder.DTO
 				Console.WriteLine("Set page: " + SetPage.ToString());
                 foreach(SetDTO CurrentSet in SetList.Sets)
                 {
-					try
-					{
-						Set NewSet = new Set(CurrentSet);
-						DbContext.Set.Add(NewSet);
-						DbContext.SaveChanges();
-					}
-					catch(Exception ex)
-					{
-					}
+					UpdateSet(CurrentSet);
                 }
 				SetPage++;
 				UpdateSets();
             }
+			else
+			{
+				UpdateCards();
+			}
         }
+
+		public void UpdateSet(SetDTO SetData)
+		{
+			Set NewSet = DbContext.Set.Find(SetData.Code);
+			if (NewSet == null)
+			{
+				NewSet = new Set(SetData);
+				DbContext.Set.Add(NewSet);
+			}
+			else
+			{
+				NewSet.UpdateFromDTO(SetData);
+			}
+		}
 
         public async void UpdateCards()
         {
             string Resource = CARDS_REF + PAGE_REF + CardPage.ToString();
             CardListDTO CardList = await GetDTOAsync<CardListDTO>(Resource);
 
-            if(CardList.Cards.Count > 0)
+            if(CardList != null && CardList.Cards.Count > 0 && CardPage < MAX_PAGES)
             {
                 foreach(CardDTO CurrentCard in CardList.Cards)
                 {
-					try
-					{
-						Card NewCard = new Card(CurrentCard);
-						DbContext.Card.Add(NewCard);
-					}
-					catch(Exception e)
-					{
-						Console.WriteLine("There was an error adding a card");
-					}
+					UpdateCard(CurrentCard);
                 }
                 CardPage++;
                 UpdateCards();
             }
+			else
+			{
+				SaveChanges();
+			}
         }
+
+		// Update a single card
+		public void UpdateCard(CardDTO CardData)
+		{
+			// First check and see if card is already in the database
+			Card CurrentCard = DbContext.Card.Find(CardData.Id);
+			if (CurrentCard == null)
+			{
+				Card NewCard = new Card(CardData);
+				DbContext.Card.Add(NewCard);
+			}
+			else
+			{
+				//CurrentCard.UpdateFromDTO(CardData);
+				//DbContext.Card.Update(CurrentCard);
+			}
+		}
 
         // Async task to get data for a Data Transfer Object of any type
         public Task<T> GetDTOAsync<T>(String Resource) where T : new()
