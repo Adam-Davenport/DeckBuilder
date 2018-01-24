@@ -26,5 +26,12 @@ namespace DeckBuilder.Models
         {
         }
 
+		public void UpdateFromDTO(SetDTO Item)
+		{
+            Name = Item.Name;
+            Type = Item.Type;
+            Border = Item.Border;
+            ReleaseDate = Item.ReleaseDate;
+		}
     }
 }
