@@ -12,7 +12,7 @@ namespace DeckBuilder
     {
         public static void Main(string[] args)
         {
-            var host = BuildWebHost(args);
+            IWebHost host = BuildWebHost(args);
             using (var scope = host.Services.CreateScope())
             {
                 IServiceProvider Services = scope.ServiceProvider;
@@ -29,9 +29,6 @@ namespace DeckBuilder
                 }
             }
             host.Run();
-
-
-
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
