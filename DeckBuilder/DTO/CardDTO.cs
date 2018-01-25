@@ -2,61 +2,61 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Runtime.Serialization;
+using RestSharp.Deserializers;
 
 namespace DeckBuilder.DTO
 {
     public class CardDTO
     {
-        [DataMember(Name = "id")]
+        [DeserializeAs(Name = "id")]
         public string Id { get; set; }
 
-        [DataMember(Name = "name")]
+        [DeserializeAs(Name = "name")]
         public string Name { get; set; }
         
-        [DataMember(Name = "multiverseid")]
+        [DeserializeAs(Name = "multiverseid")]
         public string MultiverseId { get; set; }
 
-        [DataMember(Name = "manaCost")]
+        [DeserializeAs(Name = "manaCost")]
         public string ManaCost { get; set; }
 
-        [DataMember(Name = "cmc")]
+        [DeserializeAs(Name = "cmc")]
         public int Cmc { get; set; }
 
-        [DataMember(Name = "colors")]
+        [DeserializeAs(Name = "colors")]
         public List<string>Colors { get; set; }
 
-        [DataMember(Name = "type")]
+        [DeserializeAs(Name = "type")]
         public string Type { get; set; }
 
-        [DataMember(Name = "supertypes")]
-        public string SuperTypes { get; set; }
+        [DeserializeAs(Name = "supertypes")]
+        public List<string>SuperTypes { get; set; }
 
-        [DataMember(Name = "subtypes")]
-        public string Subtypes { get; set; }
+        [DeserializeAs(Name = "subtypes")]
+        public List<String> Subtypes { get; set; }
 
-        [DataMember(Name = "rarity")]
+        [DeserializeAs(Name = "rarity")]
         public string Rarity { get; set; }
 
-        [DataMember(Name = "set")]
+        [DeserializeAs(Name = "set")]
         public string SetCode { get; set; }
 
-        [DataMember(Name = "text")]
+        [DeserializeAs(Name = "text")]
         public string Text { get; set; }
 
-        [DataMember(Name = "imageUrl")]
+        [DeserializeAs(Name = "imageUrl")]
         public string ImageUrl { get; set; }
 
-        [DataMember(Name = "artist")]
+        [DeserializeAs(Name = "artist")]
         public string Artist { get; set; }
 
-        [DataMember(Name = "power")]
+        [DeserializeAs(Name = "power")]
         public string Power { get; set; }
 
-        [DataMember(Name = "toughness")]
+        [DeserializeAs(Name = "toughness")]
         public string Toughness { get; set; }
 
-        [DataMember(Name = "layout")]
+        [DeserializeAs(Name = "layout")]
         public string Layout { get; set; }
 
     }
