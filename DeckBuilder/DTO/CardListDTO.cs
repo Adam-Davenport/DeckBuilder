@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
+using RestSharp.Deserializers;
 
 
 namespace DeckBuilder.DTO
 {
     public class CardListDTO
     {
-        [DataMember(Name = "cards")]
+        [DeserializeAs(Name = "cards")]
         public List<CardDTO> Cards { get; set; }
     }
 }
