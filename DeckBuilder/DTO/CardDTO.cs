@@ -59,5 +59,8 @@ namespace DeckBuilder.DTO
         [DeserializeAs(Name = "layout")]
         public string Layout { get; set; }
 
-    }
+        [DeserializeAs(Name = "number")]
+		public string Number { get; set; }
+
+	}
 }

@@ -6,22 +6,22 @@ namespace DeckBuilder.DTO
 {
     public class SetDTO
     {
-        [DataMember(Name = "code")]
+        [DeserializeAs(Name = "code")]
         public string Code { get; set; }
 
-        [DataMember(Name = "name")]
+        [DeserializeAs(Name = "name")]
         public string Name { get; set; }
 
-        [DataMember(Name = "type")]
+        [DeserializeAs(Name = "type")]
         public string Type { get; set; }
         
-        [DataMember(Name = "border")]
+        [DeserializeAs(Name = "border")]
         public string Border { get; set; }
 
-        [DataMember(Name = "booster")]
+        [DeserializeAs(Name = "booster")]
         public List<string> Booster { get; set; }
 
-        [DataMember(Name = "releaseDate")]
+        [DeserializeAs(Name = "releaseDate")]
         public DateTime ReleaseDate { get; set; }
     }
 
