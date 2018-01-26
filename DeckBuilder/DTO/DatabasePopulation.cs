@@ -60,18 +60,18 @@ namespace DeckBuilder.DTO
 				Console.WriteLine("Set page: " + SetPage.ToString());
                 foreach(SetDTO CurrentSet in SetList.Sets)
                 {
-					UpdateSet(CurrentSet);
+					PopulateSet(CurrentSet);
                 }
 				SetPage++;
 				PopulateSets();
             }
 			else
 			{
-				UpdateCards();
+				PopulateCards();
 			}
         }
 
-		public void UpdateSet(SetDTO SetData)
+		public void PopulateSet(SetDTO SetData)
 		{
 			Set NewSet = DbContext.Sets.Find(SetData.Code);
 			if (NewSet == null)
@@ -83,10 +83,10 @@ namespace DeckBuilder.DTO
 			{
 				NewSet.UpdateFromDTO(SetData);
 			}
-			UpdateBooster(SetData);
+			PopulateBooster(SetData);
 		}
 
-        public async void UpdateCards()
+        public async void PopulateCards()
         {
             string Resource = CARDS_REF + PAGE_REF + CardPage.ToString();
             CardListDTO CardList = await GetDTOAsync<CardListDTO>(Resource);
@@ -95,10 +95,10 @@ namespace DeckBuilder.DTO
             {
                 foreach(CardDTO CurrentCard in CardList.Cards)
                 {
-					UpdateCard(CurrentCard);
+					PopulateCard(CurrentCard);
                 }
                 CardPage++;
-                UpdateCards();
+                PopulateCards();
             }
 			else
 			{
@@ -107,7 +107,7 @@ namespace DeckBuilder.DTO
         }
 
 		// Update a single card
-		public void UpdateCard(CardDTO CardData)
+		public void PopulateCard(CardDTO CardData)
 		{
 			// First check and see if card is already in the database
 			Card CurrentCard = DbContext.Cards.Find(CardData.Id);
@@ -115,7 +115,7 @@ namespace DeckBuilder.DTO
 			{
 				Card NewCard = new Card(CardData);
 				DbContext.Cards.Add(NewCard);
-				UpdateCardColor(CardData);
+				PopulateCardColor(CardData);
 			}
 			else
 			{
@@ -124,7 +124,7 @@ namespace DeckBuilder.DTO
 			}
 		}
 
-		public void UpdateCardColor(CardDTO CardData)
+		public void PopulateCardColor(CardDTO CardData)
 		{
 			if(CardData.Colors != null && CardData.Colors.Count > 0)
 			{
@@ -144,7 +144,7 @@ namespace DeckBuilder.DTO
 			}
 		}
 
-		private void UpdateBooster(SetDTO CurrentSet)
+		private void PopulateBooster(SetDTO CurrentSet)
 		{
 			if(CurrentSet.Booster != null && CurrentSet.Booster.Count > 0)
 			{
