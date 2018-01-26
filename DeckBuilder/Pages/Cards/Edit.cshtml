@@ -1,0 +1,105 @@
+﻿@page
+@model DeckBuilder.Pages.Cards.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Card</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Card.Id" />
+            <div class="form-group">
+                <label asp-for="Card.MultiverseId" class="control-label"></label>
+                <input asp-for="Card.MultiverseId" class="form-control" />
+                <span asp-validation-for="Card.MultiverseId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Card.Name" class="control-label"></label>
+                <input asp-for="Card.Name" class="form-control" />
+                <span asp-validation-for="Card.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Card.SetId" class="control-label"></label>
+                <input asp-for="Card.SetId" class="form-control" />
+                <span asp-validation-for="Card.SetId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Card.Number" class="control-label"></label>
+                <input asp-for="Card.Number" class="form-control" />
+                <span asp-validation-for="Card.Number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Card.ManaCost" class="control-label"></label>
+                <input asp-for="Card.ManaCost" class="form-control" />
+                <span asp-validation-for="Card.ManaCost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Card.Cmc" class="control-label"></label>
+                <input asp-for="Card.Cmc" class="form-control" />
+                <span asp-validation-for="Card.Cmc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Card.Power" class="control-label"></label>
+                <input asp-for="Card.Power" class="form-control" />
+                <span asp-validation-for="Card.Power" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Card.Toughness" class="control-label"></label>
+                <input asp-for="Card.Toughness" class="form-control" />
+                <span asp-validation-for="Card.Toughness" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Card.Type" class="control-label"></label>
+                <input asp-for="Card.Type" class="form-control" />
+                <span asp-validation-for="Card.Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Card.ImageUrl" class="control-label"></label>
+                <input asp-for="Card.ImageUrl" class="form-control" />
+                <span asp-validation-for="Card.ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Card.Rarity" class="control-label"></label>
+                <input asp-for="Card.Rarity" class="form-control" />
+                <span asp-validation-for="Card.Rarity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Card.Text" class="control-label"></label>
+                <input asp-for="Card.Text" class="form-control" />
+                <span asp-validation-for="Card.Text" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Card.FlavorText" class="control-label"></label>
+                <input asp-for="Card.FlavorText" class="form-control" />
+                <span asp-validation-for="Card.FlavorText" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Card.Artist" class="control-label"></label>
+                <input asp-for="Card.Artist" class="form-control" />
+                <span asp-validation-for="Card.Artist" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Card.Layout" class="control-label"></label>
+                <input asp-for="Card.Layout" class="form-control" />
+                <span asp-validation-for="Card.Layout" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
