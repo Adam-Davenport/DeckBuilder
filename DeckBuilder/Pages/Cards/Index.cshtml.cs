@@ -26,7 +26,7 @@ namespace DeckBuilder.Pages.Cards
         public async Task OnGetAsync(string sortOrder, string searchString, int? pageIndex)
         {
 			CurrentFilter = searchString;
-			IQueryable<Card> CardIQ = from c in _context.Card select c;
+			IQueryable<Card> CardIQ = from c in _context.Cards select c;
 
 			if(!String.IsNullOrEmpty(searchString))
 			{

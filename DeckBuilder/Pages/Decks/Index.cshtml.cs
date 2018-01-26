@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DeckBuilder.Models;
 
-namespace DeckBuilder.Pages.Sets
+namespace DeckBuilder.Pages.Decks
 {
     public class IndexModel : PageModel
     {
@@ -18,11 +18,11 @@ namespace DeckBuilder.Pages.Sets
             _context = context;
         }
 
-        public IList<Set> Set { get;set; }
+        public IList<Deck> Deck { get;set; }
 
         public async Task OnGetAsync()
         {
-            Set = await _context.Sets.ToListAsync();
+            Deck = await _context.Decks.ToListAsync();
         }
     }
 }

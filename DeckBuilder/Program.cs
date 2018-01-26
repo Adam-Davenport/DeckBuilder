@@ -18,8 +18,8 @@ namespace DeckBuilder
 
 				try
 				{
-					MagicApi API = new MagicApi(Services);
-					API.UpdateDatabase();
+					DatabasePopulation API = new DatabasePopulation(Services);
+					API.PopulateDatabase();
 				}
 				catch (Exception ex)
 				{

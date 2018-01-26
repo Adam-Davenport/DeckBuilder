@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DeckBuilder.Models;
 
-namespace DeckBuilder.Pages.Cards
+namespace DeckBuilder.Pages.Decks
 {
     public class EditModel : PageModel
     {
@@ -20,18 +20,18 @@ namespace DeckBuilder.Pages.Cards
         }
 
         [BindProperty]
-        public Card Card { get; set; }
+        public Deck Deck { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Card = await _context.Cards.SingleOrDefaultAsync(m => m.Id == id);
+            Deck = await _context.Decks.SingleOrDefaultAsync(m => m.Id == id);
 
-            if (Card == null)
+            if (Deck == null)
             {
                 return NotFound();
             }
@@ -45,7 +45,7 @@ namespace DeckBuilder.Pages.Cards
                 return Page();
             }
 
-            _context.Attach(Card).State = EntityState.Modified;
+            _context.Attach(Deck).State = EntityState.Modified;
 
             try
             {
@@ -53,7 +53,7 @@ namespace DeckBuilder.Pages.Cards
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CardExists(Card.Id))
+                if (!DeckExists(Deck.Id))
                 {
                     return NotFound();
                 }
@@ -66,9 +66,9 @@ namespace DeckBuilder.Pages.Cards
             return RedirectToPage("./Index");
         }
 
-        private bool CardExists(string id)
+        private bool DeckExists(int id)
         {
-            return _context.Cards.Any(e => e.Id == id);
+            return _context.Decks.Any(e => e.Id == id);
         }
     }
 }

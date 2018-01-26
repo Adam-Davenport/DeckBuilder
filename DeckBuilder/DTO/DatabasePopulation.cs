@@ -12,7 +12,7 @@ namespace DeckBuilder.DTO
 	 * UpdateSets -> Update single set -> Update Boosters for set
 	 * Update Cards -> Update Single card
 	 */
-    public class MagicApi
+    public class DatabasePopulation
     {
         private const string BASEURL = "https://api.magicthegathering.io/v1";   // Base url for mtg api
         private const string CARDS_REF = "cards";   // Card reference
@@ -24,18 +24,18 @@ namespace DeckBuilder.DTO
 		private const int MAX_PAGES = 5;
 
 
-        public MagicApi(IServiceProvider ServiceProvider)
+        public DatabasePopulation(IServiceProvider ServiceProvider)
         {
-            // Get our db context
             DbContext = new DeckBuilderContext(ServiceProvider.GetRequiredService<DbContextOptions<DeckBuilderContext>>());
-            CardPage = 1;   // Page starts at 1 and is not a 0 based index
+			// Page indexes are 1 based
+            CardPage = 1;
             SetPage = 1;
         }
 
         // Call all update functions
-        public void UpdateDatabase()
+        public void PopulateDatabase()
         {
-            UpdateSets();
+            PopulateSets();
 		}
 
 		public void SaveChanges()
@@ -46,9 +46,11 @@ namespace DeckBuilder.DTO
 			}
 			catch (DbUpdateConcurrencyException)
 			{ }
+			catch (DbUpdateException)
+			{ }
 		}
 
-        public async void UpdateSets()
+        public async void PopulateSets()
         {
             string Resource = SETS_REF + PAGE_REF + SetPage;
             SetListDTO SetList = await GetDTOAsync<SetListDTO>(Resource);
@@ -61,7 +63,7 @@ namespace DeckBuilder.DTO
 					UpdateSet(CurrentSet);
                 }
 				SetPage++;
-				UpdateSets();
+				PopulateSets();
             }
 			else
 			{
@@ -71,11 +73,11 @@ namespace DeckBuilder.DTO
 
 		public void UpdateSet(SetDTO SetData)
 		{
-			Set NewSet = DbContext.Set.Find(SetData.Code);
+			Set NewSet = DbContext.Sets.Find(SetData.Code);
 			if (NewSet == null)
 			{
 				NewSet = new Set(SetData);
-				DbContext.Set.Add(NewSet);
+				DbContext.Sets.Add(NewSet);
 			}
 			else
 			{
@@ -108,11 +110,12 @@ namespace DeckBuilder.DTO
 		public void UpdateCard(CardDTO CardData)
 		{
 			// First check and see if card is already in the database
-			Card CurrentCard = DbContext.Card.Find(CardData.Id);
+			Card CurrentCard = DbContext.Cards.Find(CardData.Id);
 			if (CurrentCard == null)
 			{
 				Card NewCard = new Card(CardData);
-				DbContext.Card.Add(NewCard);
+				DbContext.Cards.Add(NewCard);
+				UpdateCardColor(CardData);
 			}
 			else
 			{
@@ -123,16 +126,20 @@ namespace DeckBuilder.DTO
 
 		public void UpdateCardColor(CardDTO CardData)
 		{
-			foreach(string color in CardData.Colors)
+			if(CardData.Colors != null && CardData.Colors.Count > 0)
 			{
-				CardColor cardColor = new CardColor
+				foreach(string color in CardData.Colors)
 				{
-					CardId = CardData.Id,
-					Color = color
-				};
-				try
-				{
-					DbContext.CardColor.Add(cardColor);
+					CardColor ExistingColor = DbContext.CardColors.Find(CardData.Id, color);
+					if(ExistingColor == null)
+					{
+						CardColor cardColor = new CardColor
+						{
+							CardId = CardData.Id,
+							Color = color
+						};
+						DbContext.CardColors.Add(cardColor);
+					}
 				}
 			}
 		}
@@ -143,7 +150,7 @@ namespace DeckBuilder.DTO
 			{
 				foreach(string CardType in CurrentSet.Booster)
 				{
-					Booster CurrentBooster = DbContext.Booster.Find(CurrentSet.Code, CardType);
+					Booster CurrentBooster = DbContext.Boosters.Find(CurrentSet.Code, CardType);
 					if(CurrentBooster != null)
 					{
 						CurrentBooster = new Booster(CurrentSet.Code, CardType);
