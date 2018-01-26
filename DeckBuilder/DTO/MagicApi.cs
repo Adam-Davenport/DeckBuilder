@@ -111,9 +111,6 @@ namespace DeckBuilder.DTO
 			Card CurrentCard = DbContext.Card.Find(CardData.Id);
 			if (CurrentCard == null)
 			{
-				Console.WriteLine("===============================");
-				Console.WriteLine(CardData.Name + CardData.SetCode);
-				Console.WriteLine("===============================");
 				Card NewCard = new Card(CardData);
 				DbContext.Card.Add(NewCard);
 			}
@@ -121,6 +118,22 @@ namespace DeckBuilder.DTO
 			{
 				//CurrentCard.UpdateFromDTO(CardData);
 				//DbContext.Card.Update(CurrentCard);
+			}
+		}
+
+		public void UpdateCardColor(CardDTO CardData)
+		{
+			foreach(string color in CardData.Colors)
+			{
+				CardColor cardColor = new CardColor
+				{
+					CardId = CardData.Id,
+					Color = color
+				};
+				try
+				{
+					DbContext.CardColor.Add(cardColor);
+				}
 			}
 		}
 

@@ -5,6 +5,7 @@ namespace DeckBuilder.Models
     public class DeckBuilderContext : DbContext
     {
         public DbSet<Card> Card { get; set; }           // Cards
+		public DbSet<CardColor> CardColor { get; set; }	// Card colors
         public DbSet<Set> Set { get; set; }             // Card set
         public DbSet<Booster> Booster { get; set; }     // Booster for set
         public DbSet<Deck> Deck { get; set; }           // Deck

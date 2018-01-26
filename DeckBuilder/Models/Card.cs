@@ -37,7 +37,7 @@ namespace DeckBuilder.Models
             Power = Item.Power;
             Toughness = Item.Toughness;
             Layout = Item.Layout;
-    }
+		}
 
         public Card()
         {
