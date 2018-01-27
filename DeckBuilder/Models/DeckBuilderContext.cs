@@ -23,6 +23,8 @@ namespace DeckBuilder.Models
 			modelBuilder.Entity<Booster>().HasKey(b => new { b.SetCode, b.CardType });
 			modelBuilder.Entity<CardColor>().HasKey(c => new { c.CardId, c.Color });
 			modelBuilder.Entity<DeckComment>().HasKey(c => new { c.DeckId, c.CommentId });
+
+			// Relationships
         }
         
     }

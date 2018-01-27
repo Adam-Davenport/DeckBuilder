@@ -1,4 +1,5 @@
 using DeckBuilder.DTO;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DeckBuilder.Models
 {
@@ -7,8 +8,11 @@ namespace DeckBuilder.Models
         public string Id { get; set; } // Unique id of the card for a specific set
         public string MultiverseId { get; set; } // Multiverse id of the card
         public string Name { get; set; }
-        public string SetId { get; set; }
-        public int Number { get; set; }
+
+		public string SetId { get; set; }
+		public Set Set { get; set; }
+
+		public int Number { get; set; }
         public string ManaCost { get; set; }
         public int Cmc { get; set; }
         public string Power { get; set; }
@@ -18,7 +22,7 @@ namespace DeckBuilder.Models
         public string Rarity { get; set; }
         public string Text { get; set; }
         public string FlavorText { get; set; }
-        public string Artist { get; set; }
+	    public string Artist { get; set; }
         public string Layout { get; set; }
 
         public Card(CardDTO Item)
@@ -30,8 +34,8 @@ namespace DeckBuilder.Models
             Cmc = Item.Cmc;
             Type = Item.Type;
             Rarity = Item.Rarity;
-            SetId = Item.SetCode;
-            Text = Item.Text;
+			SetId = Item.SetCode;
+			Text = Item.Text;
             ImageUrl = Item.ImageUrl;
             Artist = Item.Artist;
             Power = Item.Power;
@@ -51,8 +55,8 @@ namespace DeckBuilder.Models
             Cmc = Item.Cmc;
             Type = Item.Type;
             Rarity = Item.Rarity;
-            SetId = Item.SetCode;
-            Text = Item.Text;
+			SetId = Item.SetCode;
+			Text = Item.Text;
             ImageUrl = Item.ImageUrl;
             Artist = Item.Artist;
             Power = Item.Power;

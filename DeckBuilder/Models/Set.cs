@@ -1,6 +1,7 @@
 using System;
 using DeckBuilder.DTO;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace DeckBuilder.Models
 {
@@ -13,7 +14,9 @@ namespace DeckBuilder.Models
         public DateTime ReleaseDate { get; set; }
         public string Border { get; set; }
 
-        public Set(SetDTO Item)
+		public ICollection<Card> Cards { get; set; }
+
+		public Set(SetDTO Item)
         {
             Code = Item.Code;
             Name = Item.Name;

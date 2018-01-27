@@ -22,7 +22,10 @@ namespace DeckBuilder.Pages.Decks
         [BindProperty]
         public Deck Deck { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+		[BindProperty]
+		public string DeckList { get; set; }
+
+		public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
