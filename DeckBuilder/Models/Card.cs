@@ -1,4 +1,5 @@
 using DeckBuilder.DTO;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DeckBuilder.Models
@@ -24,8 +25,9 @@ namespace DeckBuilder.Models
         public string FlavorText { get; set; }
 	    public string Artist { get; set; }
         public string Layout { get; set; }
+		public List<Decklist> Decklists { get; set; }
 
-        public Card(CardDTO Item)
+		public Card(CardDTO Item)
         {
             Id = Item.Id;
             Name = Item.Name;
