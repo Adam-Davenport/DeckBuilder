@@ -10,6 +10,7 @@ namespace DeckBuilder.Models
 		public string Description { get; set; }
         public string Author { get; set; }
         public DateTime Date { get; set; }
+		public ICollection<Decklist> Decklists { get; set; }
 
 		public Deck()
 		{ }

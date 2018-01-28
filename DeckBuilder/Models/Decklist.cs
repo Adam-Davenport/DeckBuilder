@@ -8,5 +8,9 @@ namespace DeckBuilder.Models
         public int DeckId { get; set; }
         public string CardId { get; set; }
         public int Count { get; set; }
-    }
+		public Deck Deck { get; set; }
+
+		public Decklist()
+		{ }
+	}
 }
