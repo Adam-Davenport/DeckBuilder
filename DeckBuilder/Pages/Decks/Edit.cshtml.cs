@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DeckBuilder.Models;
+using DeckBuilder.Data;
 
 namespace DeckBuilder.Pages.Decks
 {
@@ -43,6 +44,7 @@ namespace DeckBuilder.Pages.Decks
 
         public async Task<IActionResult> OnPostAsync()
         {
+			DeckParser.ParseDeckList(DeckList, Deck.Id, _context);
             if (!ModelState.IsValid)
             {
                 return Page();
