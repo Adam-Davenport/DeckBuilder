@@ -12,21 +12,21 @@ namespace DeckBuilder
         public static void Main(string[] args)
         {
 			IWebHost host = BuildWebHost(args);
-			//using (var scope = host.Services.CreateScope())
-			//{
-			//	IServiceProvider Services = scope.ServiceProvider;
+			using (var scope = host.Services.CreateScope())
+			{
+				IServiceProvider Services = scope.ServiceProvider;
 
-			//	try
-			//	{
-			//		DatabasePopulation API = new DatabasePopulation(Services);
-			//		API.PopulateDatabase();
-			//	}
-			//	catch (Exception ex)
-			//	{
-			//		var logger = Services.GetRequiredService<ILogger<Program>>();
-			//		logger.LogError(ex, "An error occurred seeding the DB.");
-			//	}
-			//}
+				try
+				{
+					DatabasePopulation API = new DatabasePopulation(Services);
+					API.PopulateDatabase();
+				}
+				catch (Exception ex)
+				{
+					var logger = Services.GetRequiredService<ILogger<Program>>();
+					logger.LogError(ex, "An error occurred seeding the DB.");
+				}
+			}
 			host.Run();
 
 		}

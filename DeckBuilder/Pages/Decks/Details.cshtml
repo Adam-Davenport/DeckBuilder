@@ -1,4 +1,5 @@
 ﻿@page
+@using DeckBuilder.Models;
 @model DeckBuilder.Pages.Decks.DetailsModel
 
 @{
@@ -36,6 +37,15 @@
             @Html.DisplayFor(model => model.Deck.Date)
         </dd>
     </dl>
+    <div>
+        <h4>Deck List</h4>
+        @foreach (Decklist dl in Model.Deck.Decklists)
+        {
+            <p>
+                @dl.CardId;
+            </p>
+        }
+    </div>
 </div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Deck.Id">Edit</a> |

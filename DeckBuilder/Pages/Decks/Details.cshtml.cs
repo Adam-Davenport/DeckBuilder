@@ -20,7 +20,7 @@ namespace DeckBuilder.Pages.Decks
 
         public Deck Deck { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+		public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
@@ -28,7 +28,10 @@ namespace DeckBuilder.Pages.Decks
             }
 
             Deck = await _context.Decks.SingleOrDefaultAsync(m => m.Id == id);
-
+			Deck = await _context.Decks
+				.Include(d => d.Decklists)
+				.AsNoTracking()
+				.SingleOrDefaultAsync(m => m.Id == id);
             if (Deck == null)
             {
                 return NotFound();
