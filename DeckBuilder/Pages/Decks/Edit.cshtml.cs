@@ -45,7 +45,10 @@ namespace DeckBuilder.Pages.Decks
         public async Task<IActionResult> OnPostAsync()
         {
 			List<Decklist> parsedList = DeckParser.ParseDeckList(DeckList, Deck.Id, _context);
-			_context.AddRange(parsedList);
+			if(parsedList != null)
+			{
+				_context.AddRange(parsedList);
+			}
 
 
             if (!ModelState.IsValid)

@@ -28,15 +28,26 @@ namespace DeckBuilder.Pages.Decks
             }
 
             Deck = await _context.Decks.SingleOrDefaultAsync(m => m.Id == id);
+			RemoveOldData();
 			Deck = await _context.Decks
 				.Include(d => d.Decklists)
 				.AsNoTracking()
 				.SingleOrDefaultAsync(m => m.Id == id);
+
             if (Deck == null)
             {
                 return NotFound();
             }
+			foreach(Decklist dl in Deck.Decklists)
+			{
+				dl.Card = await _context.Cards.SingleOrDefaultAsync(c => c.Id == dl.CardId);
+			}
             return Page();
         }
+
+		private void RemoveOldData()
+		{
+			List<Decklist> list = _context.DeckLists.Where(dl => dl.DeckId == Deck.Id).ToList();
+		}
     }
 }
