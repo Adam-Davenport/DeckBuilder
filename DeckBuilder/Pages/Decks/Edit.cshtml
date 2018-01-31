@@ -9,37 +9,42 @@
 
 <h4>Deck</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+
+<div class="container">
+    <div class="row">
         <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Deck.Id" />
-            <div class="form-group">
-                <label asp-for="Deck.Name" class="control-label"></label>
-                <input asp-for="Deck.Name" class="form-control" />
-                <span asp-validation-for="Deck.Name" class="text-danger"></span>
+            <div class="col-sm-6">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Deck.Id" />
+                <div class="form-group">
+                    <label asp-for="Deck.Name" class="control-label"></label>
+                    <input asp-for="Deck.Name" class="form-control" />
+                    <span asp-validation-for="Deck.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Deck.Description" class="control-label"></label>
+                    <input asp-for="Deck.Description" class="form-control" />
+                    <span asp-validation-for="Deck.Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Deck.Author" class="control-label"></label>
+                    <input asp-for="Deck.Author" class="form-control" />
+                    <span asp-validation-for="Deck.Author" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Deck.Date" class="control-label"></label>
+                    <input asp-for="Deck.Date" class="form-control" />
+                    <span asp-validation-for="Deck.Date" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Deck.Description" class="control-label"></label>
-                <input asp-for="Deck.Description" class="form-control" />
-                <span asp-validation-for="Deck.Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Deck.Author" class="control-label"></label>
-                <input asp-for="Deck.Author" class="form-control" />
-                <span asp-validation-for="Deck.Author" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Deck.Date" class="control-label"></label>
-                <input asp-for="Deck.Date" class="form-control" />
-                <span asp-validation-for="Deck.Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-            <div>
-                <h2>Mainboard</h2>
-                <textarea asp-for="DeckList" class"board form-control"></textarea>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label">Main</label>
+                    <textarea asp-for="DeckList" class="form-control" rows="20"></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
             </div>
         </form>
     </div>
