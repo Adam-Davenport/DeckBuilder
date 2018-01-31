@@ -1,4 +1,5 @@
 ﻿@page
+@using DeckBuilder.Models;
 @model DeckBuilder.Pages.Decks.EditModel
 
 @{
@@ -40,7 +41,13 @@
             <div class="col-sm-6">
                 <div class="form-group">
                     <label class="control-label">Main</label>
-                    <textarea asp-for="DeckList" class="form-control" rows="20"></textarea>
+                        @foreach(Decklist dl in Model.Deck.Decklists)
+                        {
+                            @dl.Count @dl.CardId
+                        }
+
+                    <textarea asp-for="DeckString" class="form-control" rows="20">
+                    </textarea>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Save" class="btn btn-default" />
@@ -50,7 +57,6 @@
     </div>
 
 </div>
-
 <div>
     <a asp-page="./Index">Back to List</a>
 </div>

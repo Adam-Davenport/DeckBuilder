@@ -11,6 +11,7 @@ namespace DeckBuilder.Models
 		public Deck Deck { get; set; }
 		public Card Card { get; set; }
 
+
 		public Decklist()
 		{ }
 

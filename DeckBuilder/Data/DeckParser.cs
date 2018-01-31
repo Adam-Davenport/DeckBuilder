@@ -57,8 +57,9 @@ namespace DeckBuilder.Data
 			{
 				try
 				{
-					count = int.Parse(line.Substring(0, index-1));
-					line = line.Substring(index);
+					string substring = line.Substring(0, index);
+					count = int.Parse(substring);
+					line = line.Substring(index + 1);
 				}
 				catch(FormatException)
 				{ }

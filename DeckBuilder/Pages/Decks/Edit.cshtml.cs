@@ -24,7 +24,10 @@ namespace DeckBuilder.Pages.Decks
         public Deck Deck { get; set; }
 
 		[BindProperty]
-		public string DeckList { get; set; }
+		public List<Decklist> Decklists { get; set; }
+
+		[BindProperty]
+		public string DeckString { get; set; }
 
 		public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -33,7 +36,10 @@ namespace DeckBuilder.Pages.Decks
                 return NotFound();
             }
 
-            Deck = await _context.Decks.SingleOrDefaultAsync(m => m.Id == id);
+            Deck = await _context.Decks
+				.Include(decklist => decklist.Decklists)
+					.ThenInclude(deck => deck.Card)
+				.SingleOrDefaultAsync(m => m.Id == id);
 
             if (Deck == null)
             {
@@ -44,7 +50,7 @@ namespace DeckBuilder.Pages.Decks
 
         public async Task<IActionResult> OnPostAsync()
         {
-			List<Decklist> parsedList = DeckParser.ParseDeckList(DeckList, Deck.Id, _context);
+			List<Decklist> parsedList = DeckParser.ParseDeckList(DeckString, Deck.Id, _context);
 			if(parsedList != null)
 			{
 				_context.AddRange(parsedList);
@@ -76,6 +82,11 @@ namespace DeckBuilder.Pages.Decks
 
             return RedirectToPage("./Index");
         }
+
+		private void RemoveOldList()
+		{
+
+		}
 
         private bool DeckExists(int id)
         {
