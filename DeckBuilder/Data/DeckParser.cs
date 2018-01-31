@@ -19,10 +19,6 @@ namespace DeckBuilder.Data
 			RawInput = raw;
 			DeckId = id;
 			DbContext = context;
-			if(DeckLists == null)
-			{
-				return null;
-			}
 			DeckLists = GetDecklist();
 			return DeckLists;
 		}
@@ -59,10 +55,10 @@ namespace DeckBuilder.Data
 			int index = line.IndexOf(" ");
 			if(index != -1)
 			{
-				line = line.Substring(index);
 				try
 				{
-					count = int.Parse(line.Substring(0, index));
+					count = int.Parse(line.Substring(0, index-1));
+					line = line.Substring(index);
 				}
 				catch(FormatException)
 				{ }
