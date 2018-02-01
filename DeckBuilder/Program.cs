@@ -12,10 +12,16 @@ namespace DeckBuilder
         public static void Main(string[] args)
         {
 			IWebHost host = BuildWebHost(args);
+			PopulateDatabase(host);
+			host.Run();
+
+		}
+
+		private static void PopulateDatabase(IWebHost host)
+		{
 			using (var scope = host.Services.CreateScope())
 			{
 				IServiceProvider Services = scope.ServiceProvider;
-
 				try
 				{
 					DatabasePopulation API = new DatabasePopulation(Services);
@@ -27,8 +33,6 @@ namespace DeckBuilder
 					logger.LogError(ex, "An error occurred seeding the DB.");
 				}
 			}
-			host.Run();
-
 		}
 
         public static IWebHost BuildWebHost(string[] args) =>
@@ -36,4 +40,5 @@ namespace DeckBuilder
                 .UseStartup<Startup>()
                 .Build();
     }
+
 }

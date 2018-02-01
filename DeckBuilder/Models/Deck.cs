@@ -9,10 +9,12 @@ namespace DeckBuilder.Models
 		public string Name { get; set; }
 		public string Description { get; set; }
         public string Author { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Date { get; private set; }
 		public ICollection<Decklist> Decklists { get; set; }
 
 		public Deck()
-		{ }
+		{
+			Date = DateTime.Now;
+		}
     }
 }

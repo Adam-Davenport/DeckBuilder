@@ -32,21 +32,11 @@
                     <input asp-for="Deck.Author" class="form-control" />
                     <span asp-validation-for="Deck.Author" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="Deck.Date" class="control-label"></label>
-                    <input asp-for="Deck.Date" class="form-control" />
-                    <span asp-validation-for="Deck.Date" class="text-danger"></span>
-                </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label class="control-label">Main</label>
-                        @foreach(Decklist dl in Model.Deck.Decklists)
-                        {
-                            @dl.Count @dl.CardId
-                        }
-
-                    <textarea asp-for="DeckString" class="form-control" rows="20">
+                    <textarea asp-for="DeckString" class="form-control" value="@Model.DeckString" rows="20">
                     </textarea>
                 </div>
                 <div class="form-group">

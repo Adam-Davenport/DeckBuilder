@@ -33,9 +33,12 @@ namespace DeckBuilder.DTO
         }
 
         // Call all update functions
-        public void PopulateDatabase()
+        public async void PopulateDatabase()
         {
-            PopulateSets();
+			if(!await DbContext.Decks.AnyAsync())
+			{
+				PopulateSets();
+			}
 		}
 
 		public void SaveChanges()
@@ -91,7 +94,7 @@ namespace DeckBuilder.DTO
             string Resource = CARDS_REF + PAGE_REF + CardPage.ToString();
             CardListDTO CardList = await GetDTOAsync<CardListDTO>(Resource);
 
-            if(CardList != null && CardList.Cards.Count > 0 && CardPage < MAX_PAGES)
+            if(CardList != null && CardList.Cards.Count > 0)
             {
                 foreach(CardDTO CurrentCard in CardList.Cards)
                 {

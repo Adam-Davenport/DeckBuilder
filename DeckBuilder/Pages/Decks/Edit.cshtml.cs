@@ -24,10 +24,15 @@ namespace DeckBuilder.Pages.Decks
         public Deck Deck { get; set; }
 
 		[BindProperty]
-		public List<Decklist> Decklists { get; set; }
-
-		[BindProperty]
 		public string DeckString { get; set; }
+
+		private void GetDeckString()
+		{
+			foreach(Decklist dl in Deck.Decklists)
+			{
+				DeckString += dl.Count + " " + dl.Card.Name + "\r\n";
+			}
+		}
 
 		public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -40,6 +45,8 @@ namespace DeckBuilder.Pages.Decks
 				.Include(decklist => decklist.Decklists)
 					.ThenInclude(deck => deck.Card)
 				.SingleOrDefaultAsync(m => m.Id == id);
+
+			GetDeckString();
 
             if (Deck == null)
             {
