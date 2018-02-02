@@ -14,9 +14,9 @@ namespace DeckBuilder.Pages.Cards
 		public string CurrentFilter { get; set; }
 		public string CurrentSort { get; set; }
 
-		private readonly DeckBuilder.Models.DeckBuilderContext _context;
+		private readonly DeckBuilderContext _context;
 
-        public IndexModel(DeckBuilder.Models.DeckBuilderContext context)
+        public IndexModel(DeckBuilderContext context)
         {
             _context = context;
         }
@@ -32,6 +32,8 @@ namespace DeckBuilder.Pages.Cards
 			{
 				CardIQ = CardIQ.Where(c => c.Name.Contains(searchString));
 			}
+
+			CardIQ = CardIQ.Where(card => card.MultiverseId != null);
 			int pageSize = 10;
 			//Card = await CardIQ.AsNoTracking().ToListAsync();
 			Card = await PaginatedList<Card>.CreateAsync(CardIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
