@@ -26,7 +26,9 @@
         {
         <div class="col-sm-3">
             <h3><a asp-page="./Details" asp-route-id="@card.Id">@card.Name</a></h3>
-            <img src="@card.ImageUrl" alt="@card.Name" class="img-responsive" />
+            <div class="card-display">
+                <img src="@card.ImageUrl" alt="@card.Name" class="img-responsive" />
+            </div>
 
         </div>
         }

@@ -34,7 +34,7 @@ namespace DeckBuilder.Pages.Cards
 			}
 
 			CardIQ = CardIQ.Where(card => card.MultiverseId != null);
-			int pageSize = 10;
+			int pageSize = 40;
 			//Card = await CardIQ.AsNoTracking().ToListAsync();
 			Card = await PaginatedList<Card>.CreateAsync(CardIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
         }
