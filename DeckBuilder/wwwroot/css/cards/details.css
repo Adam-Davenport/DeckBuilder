@@ -1,0 +1,29 @@
+﻿.card-box {
+    margin: auto;
+}
+
+.card-image {
+    padding: 0;
+    margin: auto;
+    float: left;
+}
+
+.card-details {
+    float: left;
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    border: 1px solid black;
+    height: 300px;
+    padding: 13px;
+    margin-left: -8px;
+}

@@ -5,17 +5,17 @@
     ViewData["Title"] = "Details";
 }
 
+<link rel="stylesheet" href="~/css/cards/details.css" />
 <h1>@Model.Card.Name</h1>
-<div class="row">
-    <div class="col-md-6">
-        <img src="@Model.Card.ImageUrl" alt="@Model.Card.Name" class="img-responsive" />
-    </div>
-    <div class="col-md-6">
+<div class="card-block">
+    <img src="@Model.Card.ImageUrl" alt="@Model.Card.Name" class="card-image" />
+    <div class="card-details mb-4 card box-shadow">
         <label>Name:</label>
         <p>@Model.Card.Name</p>
         <label>Text:</label>
         <p>@Model.Card.Text</p>
     </div>
+    <div class=""></div>
 </div>
 
 <div>
