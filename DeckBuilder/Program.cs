@@ -14,7 +14,6 @@ namespace DeckBuilder
 			IWebHost host = BuildWebHost(args);
 			PopulateDatabase(host);
 			host.Run();
-
 		}
 
 		private static void PopulateDatabase(IWebHost host)
