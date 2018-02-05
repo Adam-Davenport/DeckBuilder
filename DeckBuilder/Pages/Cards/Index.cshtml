@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = "Index";
 }
+<link rel="stylesheet" href="~/css/cards/index.css" />
 
 <h2>Index</h2>
 
@@ -24,10 +25,11 @@
     <div class="row">
         @foreach (var card in Model.Card)
         {
-        <div class="col-sm-3">
-            <h3><a asp-page="./Details" asp-route-id="@card.Id">@card.Name</a></h3>
+        <div class="col-sm-3 card-col">
             <div class="card-display">
+                <a asp-page="./Details" asp-route-id="@card.Id">
                 <img src="@card.ImageUrl" alt="@card.Name" class="img-responsive" />
+                </a>
             </div>
 
         </div>
