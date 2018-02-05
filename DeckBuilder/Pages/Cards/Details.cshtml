@@ -9,111 +9,14 @@
 <h1>@Model.Card.Name</h1>
 <div class="card-block">
     <img src="@Model.Card.ImageUrl" alt="@Model.Card.Name" class="card-image" />
-    <div class="card-details mb-4 card box-shadow">
+    <div class="card-details">
         <label>Name:</label>
         <p>@Model.Card.Name</p>
         <label>Text:</label>
         <p>@Model.Card.Text</p>
     </div>
-    <div class=""></div>
 </div>
 
-<div>
-    <h4></h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Card.MultiverseId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Card.MultiverseId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Card.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Card.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Card.Number)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Card.Number)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Card.ManaCost)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Card.ManaCost)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Card.Cmc)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Card.Cmc)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Card.Power)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Card.Power)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Card.Toughness)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Card.Toughness)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Card.Type)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Card.Type)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Card.ImageUrl)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Card.ImageUrl)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Card.Rarity)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Card.Rarity)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Card.Text)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Card.Text)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Card.FlavorText)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Card.FlavorText)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Card.Artist)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Card.Artist)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Card.Layout)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Card.Layout)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Card.Set)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Card.Set.Code)
-        </dd>
-    </dl>
-</div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Card.Id">Edit</a> |
     <a asp-page="./Index">Back to List</a>
