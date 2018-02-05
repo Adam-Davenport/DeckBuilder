@@ -7,9 +7,9 @@
 
 <link rel="stylesheet" href="~/css/cards/details.css" />
 <h1>@Model.Card.Name</h1>
-<div class="card-block">
+<div class="row">
     <img src="@Model.Card.ImageUrl" alt="@Model.Card.Name" class="card-image" />
-    <div class="card-details">
+    <div class="col-sm-4">
         <label>Name:</label>
         <p>@Model.Card.Name</p>
         <label>Text:</label>

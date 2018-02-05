@@ -42,10 +42,7 @@
         @foreach (Decklist dl in Model.Deck.Decklists)
         {
             <p>
-                @dl.CardId
-            </p>
-            <p>
-                @dl.Card.Name
+                @dl.Count X <a asp-page="/Cards/Details" asp-route-id="@dl.Card.Id">@dl.Card.Name</a>
             </p>
         }
     </div>

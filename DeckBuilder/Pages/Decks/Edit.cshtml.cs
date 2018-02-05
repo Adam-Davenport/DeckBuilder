@@ -57,6 +57,7 @@ namespace DeckBuilder.Pages.Decks
 
         public async Task<IActionResult> OnPostAsync()
         {
+			RemoveOldList();
 			List<Decklist> parsedList = DeckParser.ParseDeckList(DeckString, Deck.Id, _context);
 			if(parsedList != null)
 			{
@@ -92,7 +93,11 @@ namespace DeckBuilder.Pages.Decks
 
 		private void RemoveOldList()
 		{
-
+			List<Decklist> oldList = _context.DeckLists
+				.Where(dl => dl.DeckId == Deck.Id)
+				.ToList();
+			_context.RemoveRange(oldList);
+			_context.SaveChanges();
 		}
 
         private bool DeckExists(int id)

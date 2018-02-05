@@ -10,28 +10,28 @@ namespace DeckBuilder.Data
     {
 		public static string RawInput { get; set; }
 		public static int DeckId { get; set; }
-		public static List<Decklist> DeckLists { get; set; }
 		public static DeckBuilderContext DbContext { get; set;  }
 
+		private static Dictionary<string, int> CardDictionary;
 
 		public static List<Decklist> ParseDeckList(string raw, int id, DeckBuilderContext context)
 		{
+			CardDictionary = new Dictionary<string, int>();
 			RawInput = raw;
 			DeckId = id;
 			DbContext = context;
-			DeckLists = GetDecklist();
-			return DeckLists;
+			return GetDecklist();
 		}
 
 		public static List<Decklist> GetDecklist()
 		{
-			List<Decklist> list = new List<Decklist>();
 			if(RawInput == null || RawInput == String.Empty)
 			{
 				return null;
 			}
 			else if(!RawInput.Contains("\r\n"))
 			{
+				List<Decklist> list = new List<Decklist>();
 				Decklist dl = ParseLine(RawInput);
 				list.Add(dl);
 				return list;
@@ -42,10 +42,17 @@ namespace DeckBuilder.Data
 				Decklist dl = ParseLine(line);
 				if(dl != null)
 				{
-					list.Add(dl);
+					if(CardDictionary.ContainsKey(dl.CardId))
+					{
+						CardDictionary[dl.CardId] += dl.Count;
+					}
+					else
+					{
+						CardDictionary.Add(dl.CardId, dl.Count);
+					}
 				}
 			}
-			return list;
+			return CompileList();
 		}
 
 		private static Decklist ParseLine(string line)
@@ -90,6 +97,20 @@ namespace DeckBuilder.Data
 			return null;
 		}
 
-
+		private static List<Decklist> CompileList()
+		{
+			List<Decklist> list = new List<Decklist>();
+			foreach(KeyValuePair<string, int> item in CardDictionary)
+			{
+				Decklist dl = new Decklist()
+				{
+					CardId = item.Key,
+					Count = item.Value,
+					DeckId = DeckId
+				};
+				list.Add(dl);
+			}
+			return list;
+		}
 	}
 }
