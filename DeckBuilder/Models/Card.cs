@@ -26,6 +26,7 @@ namespace DeckBuilder.Models
 	    public string Artist { get; set; }
         public string Layout { get; set; }
 		public List<Decklist> Decklists { get; set; }
+		public List<Sideboard> Sideboards { get; set; }
 
 		public Card(CardDTO Item)
         {
