@@ -10,21 +10,14 @@
 <div class="row">
     <img src="@Model.Card.ImageUrl" alt="@Model.Card.Name" class="card-image" />
     <div class="card-details">
-        <dl class="card-dl">
-            <dt>Name:</dt>
-            <dd>@Model.Card.Name</dd>
-            <dt>Text:</dt>
-            <dd>@Model.Card.Text</dd>
-            <dt>Type:</dt>
-            <dd>@Model.Card.Type</dd>
-            @if(Model.Card.Power != null && Model.Card.Power != String.Empty)
-            {
-                <dt>Power</dt>
-                <dd>@Model.Card.Power</dd>
-                <dt>Toughness</dt>
-                <dd>@Model.Card.Toughness</dd>
-            }
-        </dl>
+        <p>@Model.Card.Name</p>
+        <p class="border-top">@Model.Card.Text</p>
+        <p class="border-top">@Model.Card.Type</p>
+        @if(Model.Card.Power != null && Model.Card.Power != String.Empty)
+        {
+            <p class="border-top">@Model.Card.Power/@Model.Card.Toughness</p>
+        }
+        <p class="border-bottom">Artist: @Model.Card.Artist</p>
     </div>
 </div>
 
