@@ -4,8 +4,10 @@
 
 .card-image {
     padding: 0;
-    margin: auto;
+    margin: 0;
     float: left;
+    z-index: 10;
+    position: relative;
 }
 
 .card-details {
@@ -15,9 +17,12 @@
     -webkit-border-radius: 4px;
     border-radius: 4px;
     background: #fff;
-    margin: 15px auto 0 auto;
+    margin: 15px auto 0px -5px;
     max-width: 500px;
-    padding: 0 0 15px 0;
+    padding: 0 0 15px 10px;
+    float: left;
+    z-index: -1;
+    position: relative;
 }
 
 .border-top {

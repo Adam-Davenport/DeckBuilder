@@ -9,11 +9,22 @@
 <h1>@Model.Card.Name</h1>
 <div class="row">
     <img src="@Model.Card.ImageUrl" alt="@Model.Card.Name" class="card-image" />
-    <div class="col-sm-4">
-        <label>Name:</label>
-        <p>@Model.Card.Name</p>
-        <label>Text:</label>
-        <p>@Model.Card.Text</p>
+    <div class="card-details">
+        <dl class="card-dl">
+            <dt>Name:</dt>
+            <dd>@Model.Card.Name</dd>
+            <dt>Text:</dt>
+            <dd>@Model.Card.Text</dd>
+            <dt>Type:</dt>
+            <dd>@Model.Card.Type</dd>
+            @if(Model.Card.Power != null && Model.Card.Power != String.Empty)
+            {
+                <dt>Power</dt>
+                <dd>@Model.Card.Power</dd>
+                <dt>Toughness</dt>
+                <dd>@Model.Card.Toughness</dd>
+            }
+        </dl>
     </div>
 </div>
 
