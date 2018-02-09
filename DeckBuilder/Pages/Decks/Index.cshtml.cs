@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DeckBuilder.Models;
+using DeckBuilder.Utilities;
 
 namespace DeckBuilder.Pages.Decks
 {
@@ -18,11 +19,13 @@ namespace DeckBuilder.Pages.Decks
             _context = context;
         }
 
-        public IList<Deck> Deck { get;set; }
+        public PaginatedList<Deck> Decks { get;set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(int? pageIndex)
         {
-            Deck = await _context.Decks.ToListAsync();
+			IQueryable<Deck> DeckIQ = from deck in _context.Decks select deck;
+			int PageSize = 18;
+			Decks = await PaginatedList<Deck>.CreateAsync(DeckIQ, pageIndex ?? 1, PageSize);
         }
     }
 }

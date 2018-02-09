@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using DeckBuilder.DTO;
 using Microsoft.Extensions.Logging;
+using DeckBuilder.Data;
 
 namespace DeckBuilder
 {
@@ -24,6 +25,8 @@ namespace DeckBuilder
 				try
 				{
 					DatabasePopulation API = new DatabasePopulation(Services);
+					//FakeData fakeData = new FakeData(Services);
+					//fakeData.Generate();
 					API.PopulateDatabase();
 				}
 				catch (Exception ex)
