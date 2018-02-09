@@ -25,8 +25,8 @@ namespace DeckBuilder
 				try
 				{
 					DatabasePopulation API = new DatabasePopulation(Services);
-					//FakeData fakeData = new FakeData(Services);
-					//fakeData.Generate();
+					FakeData fakeData = new FakeData(Services);
+					fakeData.Generate();
 					API.PopulateDatabase();
 				}
 				catch (Exception ex)

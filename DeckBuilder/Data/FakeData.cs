@@ -23,14 +23,16 @@ namespace DeckBuilder.Data
 
 		public void Generate()
 		{
-			FakeDecks();
-
+			if (!DbContext.Decks.Any())
+			{
+				FakeDecks();
+			}
 		}
 
 		public void FakeDecks()
 		{
 			List<Deck> Decks = new List<Deck>();
-			for (int i = 0; i < 2000; i++)
+			for (int i = 0; i < 100; i++)
 			{
 				Deck NewDeck = new Deck()
 				{
@@ -46,9 +48,10 @@ namespace DeckBuilder.Data
 				DbContext.AddRange(Decks);
 				DbContext.SaveChanges();
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
 
+				Console.WriteLine(ex);
 			}
 			FakeDecklists(Decks);
 		}
@@ -59,12 +62,21 @@ namespace DeckBuilder.Data
 			{
 				try
 				{
-					DbContext.DeckLists.AddRange(GenerateDecklist(deck.Id));
+					List<Decklist> dl = GenerateDecklist(deck.Id);
+					DbContext.DeckLists.AddRange(dl);
 				}
 				catch (System.Exception ex)
 				{
 					Console.WriteLine(ex);
 				}
+			}
+			try
+			{
+				DbContext.SaveChanges();
+			}
+			catch (System.Exception ex)
+			{
+				Console.WriteLine(ex);
 			}
 		}
 
@@ -80,18 +92,24 @@ namespace DeckBuilder.Data
 			int max = Cards.Count - 1;
 			int index;
 			Card NewCard;
+			Dictionary<string, int> CardDictionary = new Dictionary<string, int>();
 			for (int i = 0; i < 15; i++)
 			{
 				index = Lorem.Integer(0, max);
 				NewCard = Cards[index];
+				CardDictionary[NewCard.Id] = 4;
+			}
+			foreach(KeyValuePair<string, int> pair in CardDictionary)
+			{
 				Decklist NewDecklist = new Decklist()
 				{
 					DeckId = DeckId,
-					Count = 4,
-					CardId = NewCard.Id
+					Count = pair.Value,
+					CardId = pair.Key
 				};
 				Decklists.Add(NewDecklist);
 			}
+
 			return Decklists;
 		}
 	}
